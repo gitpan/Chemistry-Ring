@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::Ring
 
+0.17  Aug 11 2004
+        - Fixed bug where find_rings didn't find all the rings in disconnected
+          structures.
+
 0.16  Aug 2 2004
         - Make it warnings-clean.
         - ring/rings attribute added by aromatize_mol

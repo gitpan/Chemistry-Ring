@@ -26,4 +26,5 @@ t/rings/pyrrole.ring
 t/rings2/biphenyl.ring
 t/rings2/cubane.ring
 t/rings2/cubane_sssr.ring
+t/rings2/disconnected.ring
 t/rings2/norbornane.ring

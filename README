@@ -1,4 +1,4 @@
-Chemistry::Ring version 0.16
+Chemistry::Ring version 0.17
 ============================
 
 The Chemistry::Ring module provides some basic methods for representing a ring.
@@ -13,7 +13,9 @@ unambiguous set of rings for cases such as cubane.
 
 This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 
-CHANGES SINCE VERSION 0.15
+CHANGES SINCE VERSION 0.16
+        - Fixed bug where find_rings didn't find all the rings in disconnected
+          structures.
 
 INSTALLATION
 

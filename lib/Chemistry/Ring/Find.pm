@@ -1,7 +1,7 @@
 package Chemistry::Ring::Find;
 
-$VERSION = 0.16;
-# $Id: Find.pm,v 1.4 2004/08/03 01:09:32 ivan Exp $
+$VERSION = 0.17;
+# $Id: Find.pm,v 1.5 2004/08/12 00:07:35 ivan Exp $
 
 =head1 NAME
 
@@ -250,7 +250,12 @@ unless the "sssr" option is given. For example,
 
 sub find_rings {
     my ($mol, %opts) = @_;
-    my @ring_bonds = find_ring_bonds($mol, \%opts, $mol->atoms(1), {});
+    my $visited = {};
+    my @ring_bonds;
+    for my $atom ($mol->atoms) {
+        next if $visited->{$atom};
+        push @ring_bonds, find_ring_bonds($mol, \%opts, $atom, $visited);
+    }
     my @rings;
     my $n_rings = @ring_bonds;
     #print "cyclomatic number=$n_rings\n";
@@ -300,7 +305,7 @@ simple rings and some bridged rings. It never finds fused rings (which is good).
 
 =head1 VERSION
 
-0.16
+0.17
 
 =head1 SEE ALSO
 
@@ -312,8 +317,8 @@ Ivan Tubert-Brohman E<lt>itub@cpan.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2004 Ivan Tubert. All rights reserved. This program is free
-software; you can redistribute it and/or modify it under the same terms as
+Copyright (c) 2004 Ivan Tubert-Brohman. All rights reserved. This program is
+free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 
 =cut
