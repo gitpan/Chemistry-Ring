@@ -7,6 +7,7 @@ README
 lib/Chemistry/Ring.pm
 lib/Chemistry/Ring/Find.pm
 t/find_ring.t
+t/find_rings.t
 t/pod.t
 t/ring.t
 t/ring_find.t
@@ -23,3 +24,7 @@ t/rings/furan.ring
 t/rings/mirror.ring
 t/rings/pyridine.ring
 t/rings/pyrrole.ring
+t/rings2/biphenyl.ring
+t/rings2/cubane.ring
+t/rings2/cubane_sssr.ring
+t/rings2/norbornane.ring

@@ -1,4 +1,4 @@
-Chemistry::Ring version 0.11
+Chemistry::Ring version 0.15
 ============================
 
 The Chemistry::Ring module provides some basic methods for representing a ring.
@@ -6,14 +6,16 @@ A ring is a subclass of molecule, because it has atoms and bonds. Besides that,
 it has some useful geometric methods for finding the centroid and the ring
 plane, and methods for aromaticity detection.
 
-The Chemistry::Ring::Find module implements a simple breadth-first ring finding
-algorithm. It does not find all the rings in the structure; it only finds the
-rings that include a starting atom or bond. Future versions may find all the
-rings in the molecule, or perhaps the Smallest Set of Smallest Rings.
+The Chemistry::Ring::Find module implements a breadth-first ring finding
+algorithm, and it can find all rings that contain a given atom or bond, the
+Smallest Set of Smallest Rings (SSSR), or the "almost SSSR", which is an
+unambiguous set of rings for cases such as cubane.
 
 This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 
-CHANGES SINCE VERSION 0.10
+CHANGES SINCE VERSION 0.11
+        - Find the "almost SSSR" in the molecule.
+        - Improved aromatize_mol.
 
 INSTALLATION
 

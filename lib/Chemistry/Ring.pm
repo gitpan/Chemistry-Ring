@@ -1,6 +1,6 @@
 package Chemistry::Ring;
-$VERSION = '0.11';
-#$Id: Ring.pm,v 1.2 2004/06/18 00:38:00 ivan Exp $
+$VERSION = '0.15';
+#$Id: Ring.pm,v 1.3 2004/06/30 23:19:28 ivan Exp $
 
 =head1 NAME
 
@@ -181,15 +181,10 @@ sub aromatize_mol {
 
     $_->aromatic(0) for ($mol->atoms, $mol->bonds);
 
-    for my $atom ($mol->atoms) {
-        my @rings = Chemistry::Ring::Find::find_ring(
-            $atom, all => 1, min => 5, max => 7);
-        for my $ring (@rings) {
-            if ($ring->is_aromatic) {
-                for my $ring_elem ($ring->atoms, $ring->bonds) {
-                    $ring_elem->aromatic(1);
-                }
-            }
+    my @rings = Chemistry::Ring::Find::find_rings($mol);
+    for my $ring (@rings) {
+        if ($ring->is_aromatic) {
+            $_->aromatic(1) for ($ring->atoms, $ring->bonds);
         }
     }
 }
@@ -198,7 +193,7 @@ sub aromatize_mol {
 
 =head1 VERSION
 
-0.11
+0.15
 
 =head1 SEE ALSO
 
