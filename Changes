@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::Ring
 
+0.19  Mar 29 2005
+        - Fixed memory leak.
+        - Added 'ring/rings' attribute to molecule on aromatize_mol.
+
 0.18  Aug 12 2004
         - Fixed non-deterministic ring order test failure.
 

@@ -5,6 +5,7 @@ Makefile.PL
 README
 lib/Chemistry/Ring.pm
 lib/Chemistry/Ring/Find.pm
+t/mem.t
 t/find_ring.t
 t/find_rings.t
 t/pod.t
