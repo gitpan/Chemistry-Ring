@@ -1,5 +1,8 @@
 Revision history for Perl extension Chemistry::Ring
 
+0.18  Aug 12 2004
+        - Fixed non-deterministic ring order test failure.
+
 0.17  Aug 11 2004
         - Fixed bug where find_rings didn't find all the rings in disconnected
           structures.

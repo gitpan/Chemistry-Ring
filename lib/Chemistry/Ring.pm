@@ -1,6 +1,6 @@
 package Chemistry::Ring;
-$VERSION = '0.17';
-#$Id: Ring.pm,v 1.5 2004/08/12 00:07:35 ivan Exp $
+$VERSION = '0.18';
+#$Id: Ring.pm,v 1.6 2004/08/12 19:48:57 ivan Exp $
 
 =head1 NAME
 
@@ -209,7 +209,7 @@ sub aromatize_mol {
 
 =head1 VERSION
 
-0.17
+0.18
 
 =head1 SEE ALSO
 

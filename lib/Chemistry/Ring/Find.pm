@@ -1,7 +1,7 @@
 package Chemistry::Ring::Find;
 
-$VERSION = 0.17;
-# $Id: Find.pm,v 1.5 2004/08/12 00:07:35 ivan Exp $
+$VERSION = 0.18;
+# $Id: Find.pm,v 1.6 2004/08/12 19:48:57 ivan Exp $
 
 =head1 NAME
 
@@ -305,7 +305,7 @@ simple rings and some bridged rings. It never finds fused rings (which is good).
 
 =head1 VERSION
 
-0.17
+0.18
 
 =head1 SEE ALSO
 

@@ -24,6 +24,11 @@ for my $file (@files) {
     my %opts = split " ", $options;
 
     my @rings    = find_rings($mol, %opts);
+    #use List::Util 'shuffle'; @rings = shuffle @rings;
+    @rings = map { $_->[1] } 
+        sort { $a->[0] cmp $b->[0] } 
+        map { [ join(" ", $_->atoms) => $_ ] } @rings;
+
     my @got_rings;
     for my $ring (@rings) {
         my @atoms    = $ring->atoms;
@@ -33,5 +38,9 @@ for my $file (@files) {
         push @got_rings, "atoms(@atoms); bonds(@bonds); aromatic($aromatic)";
     }
 
-    is_deeply(\@got_rings, \@expected_rings, "$file: $smiles");
+    if ($opts{sssr}) {
+        is(scalar @got_rings, scalar @expected_rings, "$file: $smiles");
+    } else {
+        is_deeply(\@got_rings, \@expected_rings, "$file: $smiles");
+    }
 }

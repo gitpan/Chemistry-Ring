@@ -28,3 +28,4 @@ t/rings2/cubane.ring
 t/rings2/cubane_sssr.ring
 t/rings2/disconnected.ring
 t/rings2/norbornane.ring
+META.yml                                 Module meta-data (added by MakeMaker)
