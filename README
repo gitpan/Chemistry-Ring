@@ -1,4 +1,4 @@
-Chemistry::Ring version 0.10
+Chemistry::Ring version 0.11
 ============================
 
 The Chemistry::Ring module provides some basic methods for representing a ring.
@@ -12,6 +12,8 @@ rings that include a starting atom or bond. Future versions may find all the
 rings in the molecule, or perhaps the Smallest Set of Smallest Rings.
 
 This module is part of the PerlMol project, L<http://www.perlmol.org/>.
+
+CHANGES SINCE VERSION 0.10
 
 INSTALLATION
 

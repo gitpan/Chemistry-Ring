@@ -1,6 +1,6 @@
 package Chemistry::Ring;
-$VERSION = '0.10';
-#$Id: Ring.pm,v 1.1.1.1 2004/06/16 19:38:14 ivan Exp $
+$VERSION = '0.11';
+#$Id: Ring.pm,v 1.2 2004/06/18 00:38:00 ivan Exp $
 
 =head1 NAME
 
@@ -23,6 +23,9 @@ Chemistry::Ring - Represent a ring as a substructure of a molecule
     # is the ring aromatic?
     print "is aromatic!\n" if $ring->is_aromatic;
 
+    # "aromatize" a molecule
+    Chemistry::Ring::aromatize_mol($mol);
+
 =head1 DESCRIPTION
 
 This module provides some basic methods for representing a ring. A ring is
@@ -41,7 +44,10 @@ use strict;
 use Math::VectorReal qw(:axis vector);
 use Statistics::Regression;
 use Chemistry::Mol;
-use base 'Chemistry::Mol';
+use base 'Chemistry::Mol', 'Exporter';
+
+our @EXPORT_OK = qw(aromatize_mol);
+our %EXPORT_TAGS = ( all => \@EXPORT_OK ); 
 
 our $N = 0;
 our $DEBUG = 0;
@@ -121,7 +127,7 @@ sub plane {
 =item $ring->is_aromatic
 
 Naively guess whether ring is aromatic from the molecular graph, with a method
-based on Hückels rule. This method is not very accurate, but works for simple
+based on Hückel's rule. This method is not very accurate, but works for simple
 molecules. Returns true or false.
 
 =cut
@@ -131,7 +137,7 @@ sub is_aromatic {
     my $n_pi = 0;
 
     for my $atom ($self->atoms) {
-        return 0 if ($atom->bonds > 3);        
+        return 0 if ($atom->bonds + $atom->hydrogens > 3);        
 
         # build bond order histogram
         my @order_freq = (0,0,0,0);
@@ -154,9 +160,45 @@ sub is_aromatic {
 
 =back
 
+=head1 EXPORTABLE SUBROUTINES
+
+Nothing is exported by default, but you can export these subroutines
+explicitly, or all of them by using the ':all' tag.
+
+=over
+
+=item aromatize_mol($mol)
+
+Finds all the aromatic rings in the molecule and marks all the atoms and bonds
+in those rings as aromatic.
+
+=cut
+
+sub aromatize_mol {
+    my ($mol) = @_;
+
+    require Chemistry::Ring::Find;
+
+    $_->aromatic(0) for ($mol->atoms, $mol->bonds);
+
+    for my $atom ($mol->atoms) {
+        my @rings = Chemistry::Ring::Find::find_ring(
+            $atom, all => 1, min => 5, max => 7);
+        for my $ring (@rings) {
+            if ($ring->is_aromatic) {
+                for my $ring_elem ($ring->atoms, $ring->bonds) {
+                    $ring_elem->aromatic(1);
+                }
+            }
+        }
+    }
+}
+
+=back
+
 =head1 VERSION
 
-0.10
+0.11
 
 =head1 SEE ALSO
 

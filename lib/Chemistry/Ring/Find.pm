@@ -1,7 +1,7 @@
 package Chemistry::Ring::Find;
 
-$VERSION = 0.10;
-# $Id: Find.pm,v 1.1.1.1 2004/06/16 19:38:14 ivan Exp $
+$VERSION = 0.11;
+# $Id: Find.pm,v 1.2 2004/06/18 00:38:00 ivan Exp $
 
 =head1 NAME
 
@@ -185,17 +185,25 @@ sub print_path {
     $ret .= "\n";
 }
 
+# contains_ring($atoms, $rings)
+# returns true if one of the rings in the array ref $rings is a proper subset
+# of the atom list in the array ref $atom.
 sub contains_ring {
     my ($atoms, $rings) = @_;
     my %seen;
     @seen{@$atoms} = ();
     for my $ring (@$rings) {
-        my $ok = 0;
+        my $unique_atoms = $ring->atoms; 
+        next if $unique_atoms >= @$atoms; # ring is same size or bigger
         # make sure that $ring has at least one atom not in $atoms
         for my $atom ($ring->atoms) {
-            $ok = 1, last unless exists $seen{$atom}; 
+            if (exists $seen{$atom}) {
+                $unique_atoms--;
+            } else {
+                last; # there's at least one unique atom!
+            }
         }
-        return 1 unless $ok;
+        return 1 unless $unique_atoms;
     }
     0;
 }
@@ -203,6 +211,10 @@ sub contains_ring {
 1;
 
 =back
+
+=head1 VERSION
+
+0.11
 
 =head1 SEE ALSO
 
