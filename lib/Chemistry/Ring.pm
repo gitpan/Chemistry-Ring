@@ -1,6 +1,6 @@
 package Chemistry::Ring;
-$VERSION = '0.15';
-#$Id: Ring.pm,v 1.3 2004/06/30 23:19:28 ivan Exp $
+$VERSION = '0.16';
+#$Id: Ring.pm,v 1.4 2004/08/03 01:09:32 ivan Exp $
 
 =head1 NAME
 
@@ -41,10 +41,12 @@ This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 =cut
 
 use strict;
+use warnings;
 use Math::VectorReal qw(:axis vector);
 use Statistics::Regression;
 use Chemistry::Mol;
 use base 'Chemistry::Mol', 'Exporter';
+use Scalar::Util 'weaken';
 
 our @EXPORT_OK = qw(aromatize_mol);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK ); 
@@ -137,6 +139,7 @@ sub is_aromatic {
     my $n_pi = 0;
 
     for my $atom ($self->atoms) {
+        no warnings 'uninitialized';
         return 0 if ($atom->bonds + $atom->hydrogens > 3);        
 
         # build bond order histogram
@@ -170,9 +173,16 @@ explicitly, or all of them by using the ':all' tag.
 =item aromatize_mol($mol)
 
 Finds all the aromatic rings in the molecule and marks all the atoms and bonds
-in those rings as aromatic.
+in those rings as aromatic. 
+
+It also adds the 'ring/rings' attribute to all ring atoms and bonds; this
+attribute is an array reference containing the list of rings that involve that
+atom or bond. NOTE (the ring/rings attribute is experimental and might change
+in future versions).
 
 =cut
+
+# TODO ring/rings will probably create memory leaks
 
 sub aromatize_mol {
     my ($mol) = @_;
@@ -186,14 +196,20 @@ sub aromatize_mol {
         if ($ring->is_aromatic) {
             $_->aromatic(1) for ($ring->atoms, $ring->bonds);
         }
+        for ($ring->atoms, $ring->bonds) {
+            my $ringlist = $_->attr("ring/rings") || [];
+            push @$ringlist, $ring;
+            $_->attr("ring/rings", $ringlist);
+        }
     }
+    @rings;
 }
 
 =back
 
 =head1 VERSION
 
-0.15
+0.16
 
 =head1 SEE ALSO
 

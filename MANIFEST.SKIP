@@ -1,6 +1,8 @@
 \.mol$
 \.gz$
 \.pl$
+\.BAK$
+\.bak$
 TODO
 swp$
 ^.$

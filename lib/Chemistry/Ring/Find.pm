@@ -1,11 +1,11 @@
 package Chemistry::Ring::Find;
 
-$VERSION = 0.15;
-# $Id: Find.pm,v 1.3 2004/06/30 23:19:28 ivan Exp $
+$VERSION = 0.16;
+# $Id: Find.pm,v 1.4 2004/08/03 01:09:32 ivan Exp $
 
 =head1 NAME
 
-Chemistry::Ring::Find
+Chemistry::Ring::Find - Find the rings (cycles) in a molecule
 
 =head1 SYNOPSIS
 
@@ -300,7 +300,7 @@ simple rings and some bridged rings. It never finds fused rings (which is good).
 
 =head1 VERSION
 
-0.15
+0.16
 
 =head1 SEE ALSO
 
@@ -308,7 +308,7 @@ L<Chemistry::Ring>, L<http://www.perlmol.org>.
 
 =head1 AUTHOR
 
-Ivan Tubert E<lt>itub@cpan.orgE<gt>
+Ivan Tubert-Brohman E<lt>itub@cpan.orgE<gt>
 
 =head1 COPYRIGHT
 

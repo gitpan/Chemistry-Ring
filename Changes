@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::Ring
 
+0.16  Aug 2 2004
+        - Make it warnings-clean.
+        - ring/rings attribute added by aromatize_mol
+
 0.15  Jun 30 2004
         - Find the "almost SSSR" in the molecule.
         - Improved aromatize_mol.
